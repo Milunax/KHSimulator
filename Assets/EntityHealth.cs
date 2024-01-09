@@ -14,6 +14,9 @@ public class EntityHealth : MonoBehaviour
         CurrentHealth = _maxHealth;
     }
 
-
+    public void TakeDamage(int damages)
+    {
+        CurrentHealth -= damages;
+    }
 
 }
