@@ -6,20 +6,11 @@ public class HitEntity : MonoBehaviour
 {
     [SerializeField] private int _damages;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        other.GetComponent<EntityHealth>().TakeDamage(_damages);
+        if(other.TryGetComponent(out IHealth health))
+        {
+            health.TakeDamage(_damages);
+        }
     }
 }

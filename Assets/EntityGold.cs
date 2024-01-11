@@ -1,18 +1,18 @@
+using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EntityGold : MonoBehaviour
+public class EntityGold : MonoBehaviour, IGold
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [ShowNativeProperty] public int Golds { get; private set; }
+    
+    public event Action OnAddGold;
 
-    // Update is called once per frame
-    void Update()
+    public void AddGold(int goldToAdd)
     {
-        
+        Golds += goldToAdd;
+        OnAddGold?.Invoke();
     }
 }

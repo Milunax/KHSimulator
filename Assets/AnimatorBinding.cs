@@ -8,6 +8,7 @@ public class AnimatorBinding : MonoBehaviour
 {
     [SerializeField] private PlayerMove _playerMoveScript;
     [SerializeField] private PlayerAttack _playerAttackScript;
+    [SerializeField] private EntityHealth _playerHealthScript;
     [SerializeField] private Animator _animator;
 
     private Coroutine _attackCoroutine;
@@ -19,6 +20,13 @@ public class AnimatorBinding : MonoBehaviour
         _playerMoveScript.Move.action.canceled += MoveStop;
 
         _playerAttackScript.Attack.action.started += AttackStart;
+
+        _playerHealthScript.OnTakeDamages += TakeDamagesAnimation;
+    }
+
+    private void TakeDamagesAnimation()
+    {
+        _animator.SetTrigger("GetHit");
     }
 
     private void MoveStart(InputAction.CallbackContext obj)
@@ -56,5 +64,7 @@ public class AnimatorBinding : MonoBehaviour
         _playerMoveScript.Move.action.started -= MoveStop;
 
         _playerAttackScript.Attack.action.started -= AttackStart;
+
+        _playerHealthScript.OnTakeDamages -= TakeDamagesAnimation;
     }
 }
